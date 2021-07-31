@@ -127,6 +127,14 @@ nav li a {
   font-size: 18px;
   width: 100%;
 }
+.btn-success-sec {
+  border-radius: 10px;
+  background-color: blue;
+  margin-left: 50;
+  margin-bottom: 10px;
+  font-size: 18px;
+  width: 70%;
+}
 .textC {
   color: #fff;
 }
@@ -139,9 +147,8 @@ form {
   width: 360px;
   margin: 0 auto;
   padding: 30px;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background: white;
+  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.1);
+  background: #fafafabe;
 }
 input {
   padding: 10px 12px;
@@ -222,4 +229,9 @@ footer {
   text-align: center;
   margin-top: 120px;
   color: #aaa;
+}
+
+.addQuestion {
+  align-content: center;
+  margin-left: 40px;
 }
