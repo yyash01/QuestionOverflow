@@ -1,4 +1,4 @@
-<!-- Smoothies is for Question Display -->
+<!-- Smoothies is for displaying all Questions -->
 <%- include('partials/header'); -%>
 <script
   src="https://kit.fontawesome.com/6e18d74916.js"
@@ -14,38 +14,14 @@
     <div class="icon"><i class="fas fa-search"></i></div>
   </div>
 </div>
-
-<ul class="recipes">
+<ul class="recipes"> -->
+  <% question.forEach(function(q){ %>
   <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Banana Boost</h4>
-    <p>Banana, Vanilla ice cream, Milk</p>
+    <img src="/logo2.png" alt="smoothie recipe icon" />
+    <h4><%= q.title %></h4>
+    <p><%= q.author.id %></p>
+    <a href="/questions/<%= q._id %>">More-Info</a>
   </li>
-  <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Tropical Twist</h4>
-    <p>Peach, Pinapple, Apple juice</p>
-  </li>
-  <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Protein Packer</h4>
-    <p>Oats, Peanut butter, Milk, Banana, Blueberries</p>
-  </li>
-  <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Banana Boost</h4>
-    <p>Banana, Vanilla ice cream, Milk</p>
-  </li>
-  <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Tropical Twist</h4>
-    <p>Peach, Pinapple, Apple juice</p>
-  </li>
-  <li class="recipe">
-    <img src="/smoothie.png" alt="smoothie recipe icon" />
-    <h4>Protein Packer</h4>
-    <p>Oats, Peanut butter, Milk, Banana, Blueberries</p>
-  </li>
-</ul>
-
+  <% }); %>
+  <!-- </ul>
 <%- include('partials/footer'); -%>

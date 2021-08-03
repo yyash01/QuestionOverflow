@@ -2,10 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const questionRoutes = require("./routes/questionsRoutes");
+const Answer = require("./models/Answer");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // middleware
 app.use(express.static("public"));
@@ -34,6 +40,5 @@ mongoose
 // routes
 app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
-app.get("/smoothies", requireAuth, (req, res) => res.render("smoothies"));
 app.use(authRoutes);
 app.use(questionRoutes);

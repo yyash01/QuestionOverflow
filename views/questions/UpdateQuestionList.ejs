@@ -1,0 +1,40 @@
+<!-- Used for adding a new Question in database -->
+<%- include('../partials/header'); -%>
+
+<div class="addQuestion">
+  <form action="/UpdateQuestionList" class="AskQuestion">
+    <h3>Post the Question</h3>
+    <label for="topic">Topic</label>
+    <input type="text" name="topic" required />
+    <div class="topic error"></div>
+    <label for="link">Link</label>
+    <input type="text" name="link" required />
+    <button class="btn-success-sec">
+      <div class="textC">Submit</div>
+    </button>
+  </form>
+  <script>
+    const form = document.querySelector("form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      //get values of Topic and link of question
+      const topic = form.topic.value;
+      const link = form.link.value;
+      try {
+        const res = await fetch("/UpdateQuestionList", {
+          method: "POST",
+          body: JSON.stringify({ topic, link }),
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await res.json(); //these things are important as ,
+        //after submitting my form we will render these pages in location.assign().
+        if (data.questionID) {
+          location.assign(`/questions/${data.questionID}`);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  </script>
+</div>
