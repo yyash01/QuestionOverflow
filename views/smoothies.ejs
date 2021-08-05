@@ -14,14 +14,16 @@
     <div class="icon"><i class="fas fa-search"></i></div>
   </div>
 </div>
-<ul class="recipes"> -->
+<ul class="recipes">
   <% question.forEach(function(q){ %>
   <li class="recipe">
     <img src="/logo2.png" alt="smoothie recipe icon" />
     <h4><%= q.title %></h4>
-    <p><%= q.author.id %></p>
-    <a href="/questions/<%= q._id %>">More-Info</a>
+    <p style="margin-bottom: 10px"><%= q.author.id %></p>
+    <a href="/questions/<%= q._id %>" class="button-two" style="color: white">
+      <b>More-Info</b>
+    </a>
   </li>
   <% }); %>
-  <!-- </ul>
+</ul>
 <%- include('partials/footer'); -%>

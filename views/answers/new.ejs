@@ -1,0 +1,29 @@
+<%- include('../partials/header'); -%>
+
+<h1>NEW ANSWER PAGE</h1>
+
+<div id="editor-container"></div>
+<script>
+  var quill = new Quill("#editor-container", {
+    modules: {
+      toolbar: [
+        [{ header: "1" }, { header: "2" }, { font: [] }],
+        [{ size: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+        ["link", "code-block"],
+      ],
+      clipboard: {
+        matchVisual: false,
+      },
+      syntax: true,
+    },
+    placeholder: "Compose an epic...",
+    theme: "snow", // or 'bubble'
+  });
+</script>

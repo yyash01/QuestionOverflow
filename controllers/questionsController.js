@@ -3,18 +3,19 @@ const User = require("../models/User");
 const Question = require("../models/Question");
 
 // controller actions
+
+//show all Questions
 module.exports.allquestion_get = (req, res) => {
-  Question.find((err, allquestions) => {
+  Question.find({}, (err, allquestions) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(allquestions);
-      res.render("smoothies");
-      // , { question: allquestions });
+      res.render("smoothies", { question: allquestions });
     }
   });
 };
 
+//shows the form to create a new Question
 module.exports.newquestion_get = (req, res) => {
   res.render("questions/UpdateQuestionList");
 };

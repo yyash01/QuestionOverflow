@@ -120,6 +120,14 @@ nav li a {
   border-radius: 30px;
   background: #fee996;
 }
+.button-two {
+  padding: 10px 40px;
+  cursor: pointer;
+  border-radius: 10px;
+  background: rgb(98, 143, 241);
+  margin-top: 10px;
+}
+
 .btn-success {
   border-radius: 10px;
   background-color: blue;
@@ -164,7 +172,6 @@ label {
 button {
   margin-top: 30px;
   border-radius: 36px;
-  background: #fee996;
   border: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -234,4 +241,8 @@ footer {
 .addQuestion {
   align-content: center;
   margin-left: 40px;
+}
+
+#editor-container {
+  height: 375px;
 }

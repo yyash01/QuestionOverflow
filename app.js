@@ -1,12 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes/authRoutes");
-const questionRoutes = require("./routes/questionsRoutes");
-const Answer = require("./models/Answer");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
-
+const authRoutes = require("./routes/authRoutes");
+const questionRoutes = require("./routes/questionsRoutes");
+const answerRoutes = require("./routes/answersRoutes");
 const app = express();
 
 app.use(bodyParser.json());
@@ -42,3 +41,4 @@ app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
 app.use(authRoutes);
 app.use(questionRoutes);
+app.use("/answer", answerRoutes);
