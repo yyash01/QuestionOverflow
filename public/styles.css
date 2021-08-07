@@ -1,7 +1,8 @@
 /* google fonts */
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 body {
+  font-family: "Rubik", sans-serif;
   margin: 20px 40px;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -91,7 +92,7 @@ a {
   text-align: center;
   line-height: 55px;
   font-size: 20px;
-  color: #644bff;
+  color: #1d1d1f;
   cursor: pointer;
 }
 /*-----Search Bar Ends--------*/
@@ -116,8 +117,15 @@ nav li a {
   padding: 10px 16px;
   letter-spacing: 2px;
 }
+.home {
+  background: #fee996;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8em;
+}
 .btn {
-  border-radius: 30px;
+  border-radius: 10px;
   background: #fee996;
 }
 .button-two {
@@ -130,18 +138,51 @@ nav li a {
 
 .btn-success {
   border-radius: 10px;
-  background-color: blue;
+  background-color: rgb(48, 47, 47);
   margin-bottom: 10px;
   font-size: 18px;
   width: 100%;
 }
 .btn-success-sec {
   border-radius: 10px;
-  background-color: blue;
+  background-color: rgb(48, 47, 47);
   margin-left: 50;
   margin-bottom: 10px;
   font-size: 18px;
   width: 70%;
+  cursor: pointer;
+}
+.btn-success-op {
+  border-radius: 10px;
+  background-color: rgb(48, 47, 47);
+  margin-left: 50;
+  margin-bottom: 10px;
+  font-size: 18px;
+  width: 235px;
+  cursor: pointer;
+}
+.btn-success-comment {
+  border-radius: 10px;
+  background-color: green;
+  margin-left: 50;
+  margin-bottom: 10px;
+  font-size: 18px;
+  width: 235px;
+  cursor: pointer;
+}
+.btn-success-solve {
+  border-radius: 10px;
+  background-color: rgb(48, 47, 47);
+  margin-bottom: auto;
+  font-size: 18px;
+  cursor: pointer;
+}
+.btn-success-solveQ {
+  border-radius: 10px;
+  background-color: rgb(148, 144, 144);
+  margin-bottom: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 .textC {
   color: #fff;
@@ -155,8 +196,23 @@ form {
   width: 360px;
   margin: 0 auto;
   padding: 30px;
-  box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.1);
-  background: #fafafabe;
+}
+.Row {
+  display: table;
+  width: 100%; /*Optional*/
+  table-layout: fixed; /*Optional*/
+  border-spacing: 10px; /*Optional*/
+}
+.Column {
+  display: table-cell;
+}
+.Col {
+  display: inline-block;
+}
+.AskQuestion {
+  width: 450px;
+  margin: 0 auto;
+  padding: 30px;
 }
 input {
   padding: 10px 12px;
@@ -171,7 +227,7 @@ label {
 }
 button {
   margin-top: 30px;
-  border-radius: 36px;
+  border-radius: 10px;
   border: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -180,8 +236,13 @@ button {
   padding: 10px 16px;
   letter-spacing: 2px;
 }
+
+textarea {
+  width: 450px;
+  font-size: 0.8em;
+}
 .error {
-  color: #ff0099;
+  color: rgb(168, 89, 36);
   margin: 10px 2px;
   font-size: 0.8em;
   font-weight: bold;
@@ -243,6 +304,114 @@ footer {
   margin-left: 40px;
 }
 
+.Row .Column .pull-right {
+  float: right;
+}
+
+.AnwerForm {
+  align-content: center;
+  width: 800px;
+  margin: -50px auto;
+  margin-bottom: 20px;
+  padding: 30px;
+}
+
+.ql-snow .ql-picker.ql-font {
+  margin-top: 30px;
+  width: 108px;
+}
+
+.ql-snow .ql-picker.ql-size {
+  margin-top: 30px;
+  width: 98px;
+}
+
+.ql-toolbar.ql-snow {
+  margin-top: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  padding: 8px;
+}
+
+.ql-container.ql-snow {
+  overflow: visible;
+}
+
+.btn-success-third {
+  border-radius: 10px;
+  background-color: rgb(48, 47, 47);
+  margin-left: 110px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  width: 70%;
+  cursor: pointer;
+}
+
 #editor-container {
-  height: 375px;
+  height: 385px;
+  border: 2px solid grey;
+}
+
+#editor-answer {
+  margin-left: 300px;
+  height: 480px;
+  width: 910px;
+  border: 1px solid grey;
+}
+#editor-answer .ql-editor {
+  height: 460px;
+}
+
+.dd-box {
+  justify-content: space-between;
+  margin-top: 40px;
+  background: #fff;
+  box-shadow: 0 10px 30px -6px rgb(30 30 100 / 25%);
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.25s;
+  width: 50%;
+}
+
+.dd-box .Row .Column .simple {
+  display: inline-flex;
+}
+
+.comment-box {
+  display: inline-flex;
+}
+.Row .Column .comment-box .input {
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+  width: 100%;
+}
+
+.cc-box {
+  justify-content: space-between;
+  margin-top: 40px;
+  background: #fff;
+  box-shadow: 0 10px 30px -6px rgb(30 30 100 / 25%);
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.25s;
+  width: 50%;
+}
+
+.cc-box .Row .Column .simple {
+  display: inline-flex;
+}
+
+.comentForm {
+  width: 880px;
+  display: inline-flex;
+}
+.comentForm textarea {
+  height: 60px;
+}
+.Row .Column .comment-box .comentForm button {
+  margin-top: 0px;
+  margin-left: 250px;
 }

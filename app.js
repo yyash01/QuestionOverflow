@@ -6,6 +6,7 @@ const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const questionRoutes = require("./routes/questionsRoutes");
 const answerRoutes = require("./routes/answersRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 const app = express();
 
 app.use(bodyParser.json());
@@ -41,4 +42,5 @@ app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
 app.use(authRoutes);
 app.use(questionRoutes);
-app.use("/answer", answerRoutes);
+app.use("/questions/:id/answer", answerRoutes);
+app.use("answer/:id/comment", commentRoutes);

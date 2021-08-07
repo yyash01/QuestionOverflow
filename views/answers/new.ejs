@@ -1,29 +1,122 @@
-<%- include('../partials/header'); -%>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Include stylesheet for Quill and highlight.js-->
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/monokai-sublime.min.css"
+      rel="stylesheet"
+    />
 
-<h1>NEW ANSWER PAGE</h1>
+    <!-- Inlcude Scripts for Quill and highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/6e18d74916.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav>
+      <h1>
+        <a href="/">DashBoard</a>
+      </h1>
+      <ul>
+        <% if (user) { %>
+        <li>Welcome, <b>DevStars</b></li>
+        <li>
+          <a href="/logout" class="btn"
+            >Logout <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </li>
+        <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+        <% } %>
+      </ul>
+    </nav>
 
-<div id="editor-container"></div>
-<script>
-  var quill = new Quill("#editor-container", {
-    modules: {
-      toolbar: [
-        [{ header: "1" }, { header: "2" }, { font: [] }],
-        [{ size: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [
-          { list: "ordered" },
-          { list: "bullet" },
-          { indent: "-1" },
-          { indent: "+1" },
-        ],
-        ["link", "code-block"],
-      ],
-      clipboard: {
-        matchVisual: false,
-      },
-      syntax: true,
-    },
-    placeholder: "Compose an epic...",
-    theme: "snow", // or 'bubble'
-  });
-</script>
+    <form class="AnwerForm">
+      <label for="topic"><b>Title</b> <%= question._id%></label>
+      <input
+        type="text"
+        name="title"
+        required
+        placeholder="Create Title of Your Answer"
+      />
+      <div id="editor-container" name="content"></div>
+      <button class="btn-success-third">
+        <div class="textC">Submit</div>
+      </button>
+    </form>
+    <script>
+      // console.log(question._id);
+      var quill = new Quill("#editor-container", {
+        modules: {
+          syntax: true,
+          toolbar: [
+            [{ header: "1" }, { header: "2" }, { font: [] }],
+            [{ size: [] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+              { list: "ordered" },
+              { list: "bullet" },
+              { indent: "-1" },
+              { indent: "+1" },
+            ],
+            ["link", "code-block"],
+          ],
+          clipboard: {
+            matchVisual: false,
+          },
+        },
+        placeholder: "Add Your Code Here...",
+        theme: "snow",
+      });
+      var justTextContent = document.getElementById("justText");
+    </script>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        //get values of title and content of answer.
+        const title = form.title.value;
+        // const content = form.content.value;
+        const content = quill.getText();
+        try {
+          const res = await fetch("/questions/<%= question._id %>/answer/new", {
+            method: "POST",
+            body: JSON.stringify({ title, content }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          if (data.answerID) {
+            console.log(data.answerID);
+            location.assign(
+              `/questions/<%= question._id %>/answer/show/${data.answerID}`
+            );
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </body>
+</html>

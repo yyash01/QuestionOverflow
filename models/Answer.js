@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const answerSchema = new mongoose.Schema({
-  title: {
+  topic: {
     type: String,
     required: true,
   },
@@ -22,6 +22,12 @@ const answerSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 const Answer = mongoose.model("Answer", answerSchema);
