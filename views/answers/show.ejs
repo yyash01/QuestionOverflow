@@ -60,17 +60,8 @@
       <div class="Row" style="margin-left: 300px">
         <div class="Column"><h2><%= answer.topic %></h2></div>
       </div>
-      <div class="Row" style="margin-left: 250px">
-        <div class="Column" style="margin-top: -100px">
-          <button type="button" class="btn-success-op">
-            <a href="#" class="textC">
-              Author<i
-                style="margin-left: 5px"
-                class="fas fa-angle-double-right"
-              ></i>
-            </a>
-          </button>
-        </div>
+      <div class="Row" style="margin-left: 300px">
+        <p style=" font-size: 25px; color: grey;">Author : <%= answer.author.name %></p>
       </div>
       <div class="Row">
         <div id="editor-answer">
@@ -97,19 +88,13 @@
             <form class="comentForm">
               <textarea type="text" name="comment" required></textarea>
               <button class="btn-success-comment">
-                <a href="#" class="textC">
-                  Add Comment<i
-                    style="margin-left: 5px"
-                    class="fas fa-angle-double-right"
-                  ></i>
-                </a>
+                <p class="textC">comment</p>
               </button>
             </form>
             <script>
               const form = document.querySelector("form");
               form.addEventListener("submit", async (e) => {
                 e.preventDefault();
-
                 //get comment
                 const topic = form.comment.value;
                 try {
@@ -122,7 +107,9 @@
                     }
                   );
                   const data = await res.json();
-                  console.log(data);
+                  if (data.commentID) {
+                    location.assign("/answer/show/<%= answer._id %>");
+                  }
                 } catch (err) {
                   console.log(err);
                 }
@@ -131,32 +118,26 @@
           </div>
         </div>
       </div>
-      <% answer.comments.forEach(function(comment){ %> <% if(comment){ %>
+      <% if(answer.comments.length === 0){ %>
+      <div class="cc-box">
+        <div class="Row"><h3>No Comments Availaible </h3></div>
+      </div>
+      <%} else { answer.comments.forEach(function(comment){ %>
       <div class="cc-box">
         <div class="Row">
-          <div class="Column">
+          <p style="margin-bottom: 20px; font-size: 20px; color: grey;"><%= comment.author.name %></p>
             <div class="simple">
               <p><%= comment.topic %></p>
               <% if(user && comment.author.id.equals(user._id)){ %>
-              <form
-                id="delete-form"
-                action="/answer/<%=answer._id %>?_method=DELETE"
-                method="POST"
-              >
-                <button
-                  type="submit"
-                  class="btn-success-solve"
-                  style="color: aliceblue; margin-top: auto"
-                >
-                  Delete
+                <button type="submit">
+                  <i class="fas fa-trash"></i>
                 </button>
-              </form>
               <% } %>
-            </div>
+          </div>
           </div>
         </div>
       </div>
-      <% }}) %>
+      <% })} %>
     </div>
   </body>
 </html>

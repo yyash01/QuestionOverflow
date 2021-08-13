@@ -4,19 +4,20 @@ const Answer = require("../models/Answer");
 const Question = require("../models/Question");
 const Comment = require("../models/Comment");
 
-module.exports.newCommentPost = (req, res) => {
-  console.log(req.params.id);
+module.exports.newCommentPost = async (req, res) => {
+  //to access the (user - id) while using JWT token , first decode it
+  const token = req.cookies.jwt;
+  const user = jwt.verify(token, "net ninja secret");
+  let userData = await User.findById(user.id);
   Answer.findById(req.params.id, function (err, answers) {
     if (err) {
       console.log(err);
       res.redirect("/");
     } else {
       const { topic } = req.body;
-      //to access the (user - id) while using JWT token , first decode it
-      const token = req.cookies.jwt;
-      const user = jwt.verify(token, "net ninja secret");
       var author = {
         id: user.id,
+        name: userData.username,
       };
       const newComment = new Comment({
         topic: topic,
@@ -30,6 +31,7 @@ module.exports.newCommentPost = (req, res) => {
           comment.save();
           answers.comments.push(comment);
           answers.save();
+          // res.redirect(307, `/answer/show/${answers._id}`);
           res.status(200).json({ commentID: comment._id });
         }
       });

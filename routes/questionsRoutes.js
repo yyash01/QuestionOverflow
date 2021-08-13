@@ -28,4 +28,7 @@ router.get("/questions/:id", questionsController.detailQuestion_get);
 
 //functionality for search-bar
 router.post("/question/show", questionsController.Question_show);
+
+//to delete a question
+router.post("/question/delete", questionsController.Question_delete);
 module.exports = router;

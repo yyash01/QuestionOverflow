@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Question = require("../models/Question");
 
 // controller actions
-
+//for search bar but not able to deal this stuff . :(
 module.exports.Question_show = async (req, res) => {
   const search = req.body.search;
   Question.find({ title: search }, (err, selectedQuestions) => {
@@ -73,4 +73,33 @@ module.exports.detailQuestion_get = (req, res) => {
         res.render("questions/QuestionDisplay", { question: foundquestion });
       }
     });
+};
+
+//to delete the question
+module.exports.Question_delete = async (req, res) => {
+  const token = req.cookies.jwt;
+  const user = jwt.verify(token, "net ninja secret");
+  let userData = await User.findById(user.id);
+  userData.questions.forEach(function (item, index, object) {
+    if (String(item) === req.body.questionID) {
+      object.splice(index, 1);
+    }
+  });
+  userData.save();
+  const query = { _id: user.id };
+  const options = {
+    // create a document if no documents match the query
+    upsert: true,
+  };
+  //replacement for olduser to  userData (which a new object in which question that we want is deleted)
+  const result = await User.replaceOne(query, userData, options);
+
+  //now delete that from question model
+  Question.findByIdAndRemove(req.body.questionID, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({ msg: "success" });
+    }
+  });
 };

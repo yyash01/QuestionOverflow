@@ -8,7 +8,7 @@ const questionSchema = new mongoose.Schema({
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
     },
   },
   link: {
@@ -19,7 +19,7 @@ const questionSchema = new mongoose.Schema({
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Answer",
+      ref: "answer",
     },
   ],
   query: {
@@ -32,6 +32,6 @@ const questionSchema = new mongoose.Schema({
   },
 });
 
-const Question = mongoose.model("Question", questionSchema);
+const Question = mongoose.model("question", questionSchema);
 
 module.exports = Question;

@@ -21,13 +21,13 @@ const userSchema = new mongoose.Schema({
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Answer",
+      ref: "answer",
     },
   ],
   questions: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Question",
+      ref: "question",
     },
   ],
 });

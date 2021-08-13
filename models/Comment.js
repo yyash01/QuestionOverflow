@@ -8,7 +8,10 @@ const commentSchema = new mongoose.Schema({
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
+    },
+    name: {
+      type: String,
     },
   },
   createdAt: {
@@ -18,6 +21,6 @@ const commentSchema = new mongoose.Schema({
   },
 });
 
-const Comment = mongoose.model("Comment", commentSchema);
+const Comment = mongoose.model("comment", commentSchema);
 
 module.exports = Comment;

@@ -29,6 +29,7 @@ module.exports.newAnswerPost = async (req, res) => {
       //to access the (user - id) while using JWT token , first decode it : spent 2hrs on figuring out this.
       var author = {
         id: user.id,
+        name: userData.username,
       };
       const newAnswer = new Answer({
         topic: title,

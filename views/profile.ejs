@@ -2,7 +2,7 @@
 
 <div class="profile">
   <div class="profile-tab">
-    <img src="user.png" style="width: 200px; height: 200px" />
+    <img src="/Userimage.png" style="width: 200px; height: 200px" />
     <div class="Row">
       <div class="Row">
         <h3>Name : <%= user.username %></h3>
@@ -43,7 +43,7 @@
         <% for (var i = 0; i < user.questions.length; i++) { %>
         <ul style="-webkit-overflow-scrolling: touch">
           <li class="op">
-            Question <%= i+1 %>
+            Question<%= i+1 %>
             <a href="/profile/question/<%= user.questions[i]._id %>">
               <i class="fas fa-external-link-alt" style="margin-left: 70px">
               </i>

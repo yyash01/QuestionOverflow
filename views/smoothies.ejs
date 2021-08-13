@@ -35,11 +35,35 @@
   <% question.forEach(function(q){ %>
   <li class="recipe">
     <img src="/logo4.png" alt="smoothie recipe icon" />
-    <h4 style="margin-bottom: 50px"><%= q.title %></h4>
-    <a href="/questions/<%= q._id %>" class="button-two" style="color: white">
-      <b>More-Info</b>
-    </a>
+    <h4><%= q.title %></h4>
+    <div class="simple">
+      <a href="/questions/<%= q._id %>" class="button-two" style="color: white">
+        <b>More-Info</b>
+      </a>
+      <%if(user && q.author.id.equals(user._id)){%>
+      <button type="button" onclick="doDelete('<%= q._id %>');">
+        <i class="fas fa-trash"></i>
+      </button>
+      <%}%>
+    </div>
   </li>
   <% }); %>
 </ul>
+<script>
+  async function doDelete(questionID) {
+    try {
+      const res = await fetch("/question/delete", {
+        method: "POST",
+        body: JSON.stringify({ questionID }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.msg === "success") {
+        location.assign("/smoothies");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+</script>
 <%- include('partials/footer'); -%>

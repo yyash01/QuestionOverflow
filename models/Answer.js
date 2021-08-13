@@ -11,7 +11,10 @@ const answerSchema = new mongoose.Schema({
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "user",
+    },
+    name: {
+      type: String,
     },
   },
   createdAt: {
@@ -25,10 +28,10 @@ const answerSchema = new mongoose.Schema({
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
+      ref: "comment",
     },
   ],
 });
 
-const Answer = mongoose.model("Answer", answerSchema);
+const Answer = mongoose.model("answer", answerSchema);
 module.exports = Answer;

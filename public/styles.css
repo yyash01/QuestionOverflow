@@ -163,11 +163,11 @@ nav li a {
 }
 .btn-success-comment {
   border-radius: 10px;
-  background-color: green;
+  background-color: gray;
   margin-left: 50;
   margin-bottom: 10px;
   font-size: 18px;
-  width: 235px;
+  width: 150px;
   cursor: pointer;
 }
 .btn-success-solve {
@@ -406,18 +406,29 @@ footer {
 .cc-box {
   justify-content: space-between;
   margin-top: 40px;
-  background: #fff;
-  box-shadow: 0 10px 30px -6px rgb(30 30 100 / 25%);
   border-radius: 5px;
   padding: 20px;
   transition: all 0.25s;
   width: 50%;
+  margin-left: 300px;
 }
 
-.cc-box .Row .Column .simple {
+.recipes .recipe .simple {
   display: inline-flex;
 }
-
+.recipes .recipe .simple button {
+  margin-top: 40px;
+  margin-left: 35px;
+  cursor: pointer;
+}
+.cc-box .Row .simple {
+  display: inline-flex;
+}
+.cc-box .Row .simple button {
+  margin-top: 0px;
+  margin-left: 60px;
+  cursor: pointer;
+}
 .comentForm {
   width: 880px;
   display: inline-flex;
