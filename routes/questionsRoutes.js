@@ -26,4 +26,6 @@ router.post(
 // shows more info about one Question
 router.get("/questions/:id", questionsController.detailQuestion_get);
 
+//functionality for search-bar
+router.post("/question/show", questionsController.Question_show);
 module.exports = router;

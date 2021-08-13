@@ -5,10 +5,22 @@
   <form action="/UpdateQuestionList" class="AskQuestion">
     <h3>Post the Question</h3>
     <label for="topic">Topic</label>
-    <input type="text" name="topic" required />
+    <input
+      type="text"
+      name="topic"
+      placeholder="Write Related Topic with Question"
+      required
+    />
     <div class="topic error"></div>
     <label for="link">Link</label>
-    <input type="text" name="link" required />
+    <input
+      type="text"
+      name="link"
+      placeholder="Add the Link of Question"
+      required
+    />
+    <label for="query">Doubt</label>
+    <input type="text" name="query" placeholder="Add Your Doubt" required />
     <button class="btn-success-sec">
       <div class="textC">Submit</div>
     </button>
@@ -21,10 +33,11 @@
       //get values of Topic and link of question
       const topic = form.topic.value;
       const link = form.link.value;
+      const problem = form.query.value;
       try {
         const res = await fetch("/UpdateQuestionList", {
           method: "POST",
-          body: JSON.stringify({ topic, link }),
+          body: JSON.stringify({ problem, topic, link }),
           headers: { "Content-Type": "application/json" },
         });
         const data = await res.json(); //these things are important as ,

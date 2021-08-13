@@ -22,6 +22,9 @@ const questionSchema = new mongoose.Schema({
       ref: "Answer",
     },
   ],
+  query: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     required: true,

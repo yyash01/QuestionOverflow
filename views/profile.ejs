@@ -1,0 +1,57 @@
+<%- include('partials/header'); -%>
+
+<div class="profile">
+  <div class="profile-tab">
+    <img src="user.png" style="width: 200px; height: 200px" />
+    <div class="Row">
+      <div class="Row">
+        <h3>Name : <%= user.username %></h3>
+      </div>
+      <div class="Row">
+        <h3>Mail : <%= user.email %></h3>
+      </div>
+      <div class="Row">
+        <h3>Points : 2</h3>
+      </div>
+    </div>
+  </div>
+  <div class="Row" style="margin-top: 60px">
+    <div class="Column">
+      <button type="button" class="btn-success-solve">
+        <a href="/" class="textC"> Answer Posted </a>
+      </button>
+      <div class="Rowrapper">
+        <% for (var i = 0; i < user.answers.length; i++) { %>
+        <ul style="-webkit-overflow-scrolling: touch">
+          <li class="op">
+            Answer <%= i+1 %>
+            <a href="/profile/answer/show/<%= user.answers[i]._id %>">
+              <i class="fas fa-external-link-alt" style="margin-left: 70px">
+              </i>
+            </a>
+          </li>
+        </ul>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="Column">
+      <button type="button" class="btn-success-solve">
+        <a href="/" class="textC"> Question Posted </a>
+      </button>
+      <div class="Rowrapper">
+        <% for (var i = 0; i < user.questions.length; i++) { %>
+        <ul style="-webkit-overflow-scrolling: touch">
+          <li class="op">
+            Question <%= i+1 %>
+            <a href="/profile/question/<%= user.questions[i]._id %>">
+              <i class="fas fa-external-link-alt" style="margin-left: 70px">
+              </i>
+            </a>
+          </li>
+        </ul>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,10 @@ module.exports.newQ = (req, res) => {
 };
 
 //to post a new Answer of A particular Question in Database.
-module.exports.newAnswerPost = (req, res) => {
+module.exports.newAnswerPost = async (req, res) => {
+  const token = req.cookies.jwt;
+  const user = jwt.verify(token, "net ninja secret");
+  let userData = await User.findById(user.id);
   //look For the Question using ID
   Question.findById(req.params.id, function (err, questions) {
     if (err) {
@@ -24,8 +27,6 @@ module.exports.newAnswerPost = (req, res) => {
     } else {
       const { title, content } = req.body;
       //to access the (user - id) while using JWT token , first decode it : spent 2hrs on figuring out this.
-      const token = req.cookies.jwt;
-      const user = jwt.verify(token, "net ninja secret");
       var author = {
         id: user.id,
       };
@@ -42,6 +43,8 @@ module.exports.newAnswerPost = (req, res) => {
           answer.save();
           questions.answers.push(answer);
           questions.save();
+          userData.answers.push(answer);
+          userData.save();
           res.status(200).json({ answerID: answer._id });
         }
       });

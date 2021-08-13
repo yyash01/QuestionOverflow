@@ -4,18 +4,38 @@
   <button type="button" class="btn-success">
     <a href="/UpdateQuestionList" class="textC">Ask Question</a>
   </button>
-  <div class="search-input">
-    <a href="" target="_blank" hidden></a>
-    <input type="text" placeholder="Type to search.." />
-    <div class="icon"><i class="fas fa-search"></i></div>
-  </div>
+  <!-- <div class="search-input">
+    <form style="display: flex; flex-direction: row">
+      <input type="text" name="search" placeholder="Type to search.." />
+      <button class="btop">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const search = form.search.value;
+        try {
+          const res = await fetch("/question/show", {
+            method: "POST",
+            body: JSON.stringify({ search }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          console.log(data);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </div> -->
 </div>
 <ul class="recipes">
   <% question.forEach(function(q){ %>
   <li class="recipe">
-    <img src="/logo2.png" alt="smoothie recipe icon" />
-    <h4><%= q.title %></h4>
-    <p style="margin-bottom: 10px"><%= q.author.id %></p>
+    <img src="/logo4.png" alt="smoothie recipe icon" />
+    <h4 style="margin-bottom: 50px"><%= q.title %></h4>
     <a href="/questions/<%= q._id %>" class="button-two" style="color: white">
       <b>More-Info</b>
     </a>

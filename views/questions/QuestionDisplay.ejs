@@ -3,7 +3,8 @@
       <div class="card1">
         <div class="Row">
           <div class="Col">
-            <h2 class="mb-2">Question:</h2> <p><%= question.title %></p>
+            <h3><%= question.title %></h3>
+            <p><%= question.query%></p>
           </div>
         </div>
         <div class="Row">
@@ -24,23 +25,26 @@
         </div>
       </div>
     </div>
-    <% question.answers.forEach(function(answer){ %>
-      <% if(answer) { %>
+    <% if(question.answers.length === 0){ %>
+      <div class="dd-box">
+        <div class="Row"><h3>Sorry No Answer Availaible  😔</h3></div>
+      </div>
+    <%} else { question.answers.forEach(function(answer){ %>
         <div class="dd-box">
             <div class="Row">
                 <div class="Column">
                     <strong><%= answer.topic %></strong>
                     <span class="pull-right"> Votes : <%= answer.votes %>
                       <button type="button" class="btn-success-solveQ">
-                        <a class="textC" href="/questions/<%= question._id %>/answer/show/<%=answer._id %>">View</a>
+                        <a class="textC" href="/answer/show/<%=answer._id %>">View</a>
                       </button>
                     </span>
                   <% if(user && answer.author.id.equals(user._id)){ %>
                       <div class="simple">
                         <button type="button" class="btn-success-solve">
-                          <a class="textC" href="/questions/<%=question._id %>/answer/<%=answer._id %>/edit">Edit</a>
+                          <a class="textC" href="/answer/<%=answer._id %>/edit">Edit</a>
                         </button>
-                          <form id="delete-form" action="/questions/<%=question._id %>/answer/<%=answer._id %>?_method=DELETE" method="POST">
+                          <form id="delete-form" action="/answer/<%=answer._id %>?_method=DELETE" method="POST">
                               <button type="submit" class="btn-success-solve" style="color: aliceblue; margin-top: auto;">Delete</button>
                           </form>
                       </div>
@@ -48,10 +52,7 @@
                 </div>
             </div>
         </div>
-      <% } else { %>
-        <h3>Sorry No Answer Availaible</h3>
-      <% } %>
-    <% }) %>
+    <% })} %>
   </body>
 </html>
 

@@ -1,5 +1,8 @@
 <%- include('partials/header'); -%>
 
+<div class="loader">
+  <img src="Rolling.gif" style="height: 50px; width: 50px" />
+</div>
 <form action="/signup">
   <h2>Login</h2>
   <label for="email">Email</label>
@@ -14,6 +17,13 @@
 </form>
 
 <%- include('partials/footer'); -%>
+
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden"; // class "loader hidden"
+  });
+</script>
 
 <script>
   const form = document.querySelector("form");
@@ -38,7 +48,6 @@
         headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
-      console.log(data);
       if (data.errors) {
         emailError.textContent = data.errors.email;
         passwordError.textContent = data.errors.password;

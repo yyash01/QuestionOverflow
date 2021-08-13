@@ -18,7 +18,14 @@
       </h3>
       <ul>
         <% if (user) { %>
-        <li>Welcome, <b>DevStars</b><i class="fas fa-user-circle"></i></li>
+        <li>
+          <a
+            href="/profile"
+            style="background-color: rgb(212, 211, 211); border-radius: 15px"
+          >
+            <b><i class="fas fa-user-circle"></i>Profile</b>
+          </a>
+        </li>
         <li>
           <a href="/logout" class="btn">
             LogOut
@@ -26,7 +33,13 @@
           </a>
         </li>
         <% } else { %>
-        <li><a href="/login">Log in</a></li>
+        <li>
+          <a
+            href="/login"
+            style="background-color: rgb(212, 211, 211); border-radius: 15px"
+            >Log in</a
+          >
+        </li>
         <li><a href="/signup" class="btn">Sign up</a></li>
         <% } %>
       </ul>

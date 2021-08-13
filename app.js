@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 const questionRoutes = require("./routes/questionsRoutes");
 const answerRoutes = require("./routes/answersRoutes");
 const commentRoutes = require("./routes/commentRoutes");
@@ -40,7 +41,11 @@ mongoose
 // routes
 app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
+app.get("/profile", (req, res) => res.render("profile"));
+app.use("/profile/answer", profileRoutes);
+app.use("/profile/question", profileRoutes);
 app.use(authRoutes);
 app.use(questionRoutes);
+app.use("/answer", answerRoutes);
 app.use("/questions/:id/answer", answerRoutes);
-app.use("answer/:id/comment", commentRoutes);
+app.use("/answer/:id/comment", commentRoutes);
