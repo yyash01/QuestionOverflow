@@ -32,7 +32,7 @@
       <div class="dd-box">
         <div class="Row"><h3>Sorry No Answer Availaible  😔</h3></div>
       </div>
-    <%} else { question.answers.forEach(function(answer){ %>
+    <%} else { question.answers.sort((a,b) => b.votes-a.votes); question.answers.forEach(function(answer){ %>
         <div class="dd-box">
                 <div class="Row">
                     <strong><%= answer.topic %></strong>

@@ -4,6 +4,7 @@ const Answer = require("../models/Answer");
 const Question = require("../models/Question");
 const Comment = require("../models/Comment");
 
+//to show a form to user to enter the answer
 module.exports.newQ = (req, res) => {
   Question.findById(req.params.id, function (err, questions) {
     if (err) {
@@ -74,6 +75,25 @@ module.exports.delete_answer = (req, res) => {
       console.log(err);
     } else {
       res.status(200).json({ msg: "success" });
+    }
+  });
+};
+
+//upvote a answer
+module.exports.upvote_answer = async (req, res) => {
+  await Answer.findOne({ _id: req.body.answerID }, function (err, found) {
+    if (found) {
+      const vote = found.votes + 1;
+      found.updateOne({ votes: vote }, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          found.save();
+        }
+      });
+      res.status(200).json({ msg: "success" });
+    } else {
+      console.log(err);
     }
   });
 };

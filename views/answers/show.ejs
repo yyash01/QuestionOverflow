@@ -79,8 +79,14 @@
       <div class="Row" style="margin-left: 300px">
         <div class="Column"><h2><%= answer.topic %></h2></div>
       </div>
-      <div class="Row" style="margin-left: 300px">
-        <p style=" font-size: 25px; color: grey;">Author : <%= answer.author.name %></p>
+      <div class="Row" style="margin-left: 300px;">
+        <p style=" font-size: 25px; color: grey;display: inline-flex;">Author : <%= answer.author.name %> 
+          <button onclick="doupVote('<%= answer._id %>');"
+           style="margin-left: 600px; margin-right: 20px; margin-top: 0px; cursor: pointer;">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+        <%= answer.votes%>
+      </p>
       </div>
       <div class="Row">
         <div id="editor-answer">
@@ -161,6 +167,27 @@
       </div>
       <% })} %>
     </div>
+    <script>
+      async function doupVote(answerID) {
+        //spinner activated
+        const loader = document.querySelector(".loader");
+        loader.className = "loader"; // class "loader hidden"
+        //delete logic
+        try {
+          const res = await fetch("/answer/upvote", {
+            method: "POST",
+            body: JSON.stringify({ answerID }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          if (data.msg === "success") {
+            location.assign("/answer/show/<%= answer._id %>");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    </script>
     <script>
       async function doDelete(commentID) {
         //spinner activated

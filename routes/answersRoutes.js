@@ -14,4 +14,6 @@ router.get("/show/:id", answersController.detailAnswer_get);
 //to delete a answer of a question
 router.post("/delete", answersController.delete_answer);
 
+//to upvote a answer
+router.post("/upvote", answersController.upvote_answer);
 module.exports = router;
