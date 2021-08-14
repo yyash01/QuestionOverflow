@@ -1,6 +1,8 @@
 <!-- Used for adding a new Question in database -->
 <%- include('../partials/header'); -%>
-
+<div class="loader hidden">
+  <img src="/Rolling.gif" style="height: 50px; width: 50px" />
+</div>
 <div class="addQuestion">
   <form action="/UpdateQuestionList" class="AskQuestion">
     <h3>Post the Question</h3>
@@ -29,6 +31,10 @@
     const form = document.querySelector("form");
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      //spinner activated
+      const loader = document.querySelector(".loader");
+      loader.className = "loader"; // class "loader hidden"
 
       //get values of Topic and link of question
       const topic = form.topic.value;

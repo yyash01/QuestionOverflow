@@ -1,5 +1,8 @@
 <!-- Smoothies is for displaying all Questions -->
 <%- include('partials/header'); -%>
+<div class="loader hidden">
+  <img src="/Rolling.gif" style="height: 50px; width: 50px" />
+</div>
 <div class="wrapper">
   <button type="button" class="btn-success">
     <a href="/UpdateQuestionList" class="textC">Ask Question</a>
@@ -51,6 +54,8 @@
 </ul>
 <script>
   async function doDelete(questionID) {
+    const loader = document.querySelector(".loader");
+    loader.className = "loader"; // class "loader hidden"
     try {
       const res = await fetch("/question/delete", {
         method: "POST",

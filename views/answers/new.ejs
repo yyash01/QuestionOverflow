@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>QuestionOverflow</title>
     <link rel="stylesheet" href="/styles.css" />
     <!-- Include stylesheet for Quill and highlight.js-->
     <link
@@ -33,20 +33,43 @@
     ></script>
   </head>
   <body>
+    <div class="loader hidden">
+      <img src="/Rolling.gif" style="height: 50px; width: 50px" />
+    </div>
     <nav>
-      <h1>
-        <a href="/">DashBoard</a>
-      </h1>
+      <h3>
+        <ul>
+          <li>
+            <a href="/smoothies" class="btn">
+              <p style="font-size: 20px">Questions</p>
+            </a>
+          </li>
+        </ul>
+      </h3>
       <ul>
         <% if (user) { %>
-        <li>Welcome, <b>DevStars</b></li>
         <li>
-          <a href="/logout" class="btn"
-            >Logout <i class="fas fa-sign-out-alt"></i>
+          <a
+            href="/profile/<%= user._id %>"
+            style="background-color: rgb(212, 211, 211); border-radius: 15px"
+          >
+            <b><i class="fas fa-user-circle"></i>Profile</b>
+          </a>
+        </li>
+        <li>
+          <a href="/logout" class="btn">
+            LogOut
+            <i class="fas fa-sign-out-alt"></i>
           </a>
         </li>
         <% } else { %>
-        <li><a href="/login">Log in</a></li>
+        <li>
+          <a
+            href="/login"
+            style="background-color: rgb(212, 211, 211); border-radius: 15px"
+            >Log in</a
+          >
+        </li>
         <li><a href="/signup" class="btn">Sign up</a></li>
         <% } %>
       </ul>
@@ -95,6 +118,9 @@
       const form = document.querySelector("form");
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        //spinner activated
+        const loader = document.querySelector(".loader");
+        loader.className = "loader"; // class "loader hidden"
 
         //get values of title and content of answer.
         const title = form.title.value;

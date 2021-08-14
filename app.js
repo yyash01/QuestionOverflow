@@ -42,11 +42,10 @@ mongoose
 // routes
 app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
-app.get("/profile", (req, res) => res.render("profile"));
-app.use("/profile/answer", profileRoutes);
-app.use("/profile/question", profileRoutes);
+app.use("/profile", profileRoutes);
 app.use(authRoutes);
 app.use(questionRoutes);
 app.use("/answer", answerRoutes);
 app.use("/questions/:id/answer", answerRoutes);
 app.use("/answer/:id/comment", commentRoutes);
+app.use("/comment", commentRoutes);

@@ -38,3 +38,13 @@ module.exports.newCommentPost = async (req, res) => {
     }
   });
 };
+
+module.exports.delete_comment = (req, res) => {
+  Comment.findByIdAndRemove(req.body.commentID, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({ msg: "success" });
+    }
+  });
+};

@@ -1,4 +1,7 @@
 <%- include('../partials/header'); -%>
+<div class="loader hidden">
+  <img src="/Rolling.gif" style="height: 50px; width: 50px" />
+</div>
     <div className="questionDisplay">
       <div class="card1">
         <div class="Row">
@@ -31,28 +34,38 @@
       </div>
     <%} else { question.answers.forEach(function(answer){ %>
         <div class="dd-box">
-            <div class="Row">
-                <div class="Column">
+                <div class="Row">
                     <strong><%= answer.topic %></strong>
                     <span class="pull-right"> Votes : <%= answer.votes %>
                       <button type="button" class="btn-success-solveQ">
                         <a class="textC" href="/answer/show/<%=answer._id %>">View</a>
                       </button>
                     </span>
-                  <% if(user && answer.author.id.equals(user._id)){ %>
-                      <div class="simple">
-                        <button type="button" class="btn-success-solve">
-                          <a class="textC" href="/answer/<%=answer._id %>/edit">Edit</a>
-                        </button>
-                          <form id="delete-form" action="/answer/<%=answer._id %>?_method=DELETE" method="POST">
-                              <button type="submit" class="btn-success-solve" style="color: aliceblue; margin-top: auto;">Delete</button>
-                          </form>
-                      </div>
-                  <% } %>
+                      <% if(user && answer.author.id.equals(user._id)){ %>
+                        <button type="button" style="cursor:pointer;"onclick="doDelete('<%= answer._id %>');"><i class="fas fa-trash"></i></button>
+                      <% } %>
                 </div>
-            </div>
         </div>
     <% })} %>
+    <script>
+      async function doDelete(answerID) {
+        const loader = document.querySelector(".loader");
+        loader.className = "loader"; // class "loader hidden"
+        try {
+          const res = await fetch("/answer/delete", {
+            method: "POST",
+            body: JSON.stringify({ answerID }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          if (data.msg === "success") {
+            location.assign("/questions/<%= question._id %>");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    </script>
   </body>
 </html>
 

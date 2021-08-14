@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<div class="loader">
+<div class="loader hidden">
   <img src="Rolling.gif" style="height: 50px; width: 50px" />
 </div>
 <form action="/signup">
@@ -11,19 +11,19 @@
   <label for="password">Password</label>
   <input type="password" name="password" />
   <div class="password error"></div>
-  <button>
+  <button style="cursor: pointer">
     Login<i style="margin-left: 5px" class="fas fa-sign-in-alt"></i>
   </button>
 </form>
 
 <%- include('partials/footer'); -%>
 
-<script>
+<!-- <script>
   window.addEventListener("load", function () {
     const loader = document.querySelector(".loader");
     loader.className += " hidden"; // class "loader hidden"
   });
-</script>
+</script> -->
 
 <script>
   const form = document.querySelector("form");
@@ -32,6 +32,8 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    // const loader = document.querySelector(".loader");
+    // loader.className = "loader"; // class "loader hidden"
 
     // reset errors
     emailError.textContent = "";

@@ -39,6 +39,7 @@ module.exports.newquestion_post = async (req, res) => {
   const token = req.cookies.jwt;
   const user = jwt.verify(token, "net ninja secret");
   let userData = await User.findById(user.id);
+  // console.log(userData);
   var author = {
     id: user.id,
   };
@@ -77,24 +78,7 @@ module.exports.detailQuestion_get = (req, res) => {
 
 //to delete the question
 module.exports.Question_delete = async (req, res) => {
-  const token = req.cookies.jwt;
-  const user = jwt.verify(token, "net ninja secret");
-  let userData = await User.findById(user.id);
-  userData.questions.forEach(function (item, index, object) {
-    if (String(item) === req.body.questionID) {
-      object.splice(index, 1);
-    }
-  });
-  userData.save();
-  const query = { _id: user.id };
-  const options = {
-    // create a document if no documents match the query
-    upsert: true,
-  };
-  //replacement for olduser to  userData (which a new object in which question that we want is deleted)
-  const result = await User.replaceOne(query, userData, options);
-
-  //now delete that from question model
+  //now delete that from Answer model
   Question.findByIdAndRemove(req.body.questionID, function (err) {
     if (err) {
       console.log(err);

@@ -11,4 +11,7 @@ router.post("/new", answersController.newAnswerPost);
 
 router.get("/show/:id", answersController.detailAnswer_get);
 
+//to delete a answer of a question
+router.post("/delete", answersController.delete_answer);
+
 module.exports = router;

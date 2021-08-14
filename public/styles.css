@@ -318,10 +318,6 @@ footer {
   margin-left: 40px;
 }
 
-.Row .Column .pull-right {
-  float: right;
-}
-
 .AnwerForm {
   align-content: center;
   width: 800px;
@@ -386,10 +382,6 @@ footer {
   padding: 20px;
   transition: all 0.25s;
   width: 50%;
-}
-
-.dd-box .Row .Column .simple {
-  display: inline-flex;
 }
 
 .comment-box {
@@ -493,4 +485,8 @@ footer {
   margin-top: -5px;
   margin-left: 5px;
   padding-top: -1000px;
+}
+
+.dd-box .Row .pull-right {
+  float: right;
 }

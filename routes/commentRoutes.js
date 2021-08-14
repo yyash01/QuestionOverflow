@@ -8,7 +8,6 @@ const router = Router({ mergeParams: true });
 router.post("/new", commentController.newCommentPost);
 
 //delete a comment by a user
-
-//edit a comment by a user
+router.post("/delete", commentController.delete_comment);
 
 module.exports = router;

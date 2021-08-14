@@ -5,10 +5,10 @@
     <img src="/Userimage.png" style="width: 200px; height: 200px" />
     <div class="Row">
       <div class="Row">
-        <h3>Name : <%= user.username %></h3>
+        <h3>Name : <%= userOP.username %></h3>
       </div>
       <div class="Row">
-        <h3>Mail : <%= user.email %></h3>
+        <h3>Mail : <%= userOP.email %></h3>
       </div>
       <div class="Row">
         <h3>Points : 2</h3>
@@ -21,11 +21,11 @@
         <a href="/" class="textC"> Answer Posted </a>
       </button>
       <div class="Rowrapper">
-        <% for (var i = 0; i < user.answers.length; i++) { %>
+        <% for (var i = 0; i < userOP.answers.length; i++) { %>
         <ul style="-webkit-overflow-scrolling: touch">
           <li class="op">
             Answer <%= i+1 %>
-            <a href="/profile/answer/show/<%= user.answers[i]._id %>">
+            <a href="/profile/answer/show/<%= userOP.answers[i]._id %>">
               <i class="fas fa-external-link-alt" style="margin-left: 70px">
               </i>
             </a>
@@ -40,11 +40,11 @@
         <a href="/" class="textC"> Question Posted </a>
       </button>
       <div class="Rowrapper">
-        <% for (var i = 0; i < user.questions.length; i++) { %>
+        <% for (var i = 0; i < userOP.questions.length; i++) { %>
         <ul style="-webkit-overflow-scrolling: touch">
           <li class="op">
             Question<%= i+1 %>
-            <a href="/profile/question/<%= user.questions[i]._id %>">
+            <a href="/profile/question/<%= userOP.questions[i]._id %>">
               <i class="fas fa-external-link-alt" style="margin-left: 70px">
               </i>
             </a>

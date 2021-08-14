@@ -66,3 +66,14 @@ module.exports.detailAnswer_get = (req, res) => {
       }
     });
 };
+
+//delete the answer
+module.exports.delete_answer = (req, res) => {
+  Answer.findByIdAndRemove(req.body.answerID, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({ msg: "success" });
+    }
+  });
+};

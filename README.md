@@ -38,5 +38,21 @@ href value).
 
 ```
 mereko question k particular answer k sare comments show krne
-the and i was not able to send 2 objects to site like answer.id , comments.id to same api , that why I change my connection startegy modles of answer and comment.
+the and i was not able to send 2 objects to site like answer.id ,
+comments.id to same api , that why I change my connection startegy modles of answer and comment.
+```
+
+```
+The JWT tokens are immutable so you can't change/update claims on an existing token - thus you have to issue a new JWT token.
+
+That leads to the biggest problem with JWT - token revocation. There are no good solutions. What you can do is
+
+Keep JWT expiration date short (and optionally use refresh tokens)
+
+Use a blacklist to keep a list of revoked tokens (of course losing the 'stateless' part this way)
+
+change the secret key (keep in mind that this revokes ALL valid tokens of all users)
+
+The best solution depends on the concrete case.
+
 ```

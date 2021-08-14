@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // handle errors
 const handleErrors = (err) => {
@@ -57,6 +58,11 @@ module.exports.signup_post = async (req, res) => {
 
   try {
     const user = await User.create({ username: name, email, password });
+    // generate salt to hash password
+    const salt = await bcrypt.genSalt();
+    // now we set user password to hashed password
+    user.password = await bcrypt.hash(user.password, salt);
+    user.save();
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
