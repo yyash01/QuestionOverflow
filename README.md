@@ -17,6 +17,8 @@ I'll do It
 
 5. to run our server : npm run devStart
 
+![Enter- page](img/img1.png)
+
 ### Some Doubts :
 
 ```
