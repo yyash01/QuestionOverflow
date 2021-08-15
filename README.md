@@ -17,7 +17,13 @@ I'll do It
 
 5. to run our server : npm run devStart
 
-![Enter- page](img/img1.png)
+![snippet1](img/img1.png)
+![snippet1](img/img2.png)
+![snippet1](img/img3.png)
+![snippet1](img/img4.png)
+![snippet1](img/img5.png)
+![snippet1](img/img6.png)
+![snippet1](img/img7.png)
 
 ### Some Doubts :
 
