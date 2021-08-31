@@ -1,6 +1,6 @@
 # QuestionOverflow
 
-I'll do It
+Starting Face for the Project :
 
 1. npm init
 2. install all dependencies
@@ -25,7 +25,9 @@ I'll do It
 ![snippet1](img/img6.png)
 ![snippet1](img/img7.png)
 
-### Some Doubts :
+### Working Snippet of Project :
+
+### Some Doubts that I face during working on this project:
 
 ```
 Is it possible to do a POST from just an <a> tag?
@@ -41,8 +43,6 @@ since when you do a POST what you're doing is sending the data in the HTTP reque
 With get you're just sending it as part of the string (thus you can do it through the
 href value).
 ```
-
-### 6. Doubt-2
 
 ```
 mereko question k particular answer k sare comments show krne
@@ -62,5 +62,4 @@ Use a blacklist to keep a list of revoked tokens (of course losing the 'stateles
 change the secret key (keep in mind that this revokes ALL valid tokens of all users)
 
 The best solution depends on the concrete case.
-
 ```
