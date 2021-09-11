@@ -4,6 +4,16 @@
 
 1. npm init
 2. install all dependencies
+```
+bcrypt
+body-parser
+cookie-parser
+ejs
+express
+jsonwebtoken
+mongoose
+validator
+```
 3. nodemon : npm install nodemon -g
 4. changes to be made : in package.json file
 
