@@ -1,9 +1,19 @@
 # QuestionOverflow
 
-Starting Face for the Project :
+### Starting Face for the Project :
 
 1. npm init
 2. install all dependencies
+```
+bcrypt
+body-parser
+cookie-parser
+ejs
+express
+jsonwebtoken
+mongoose
+validator
+```
 3. nodemon : npm install nodemon -g
 4. changes to be made : in package.json file
 
@@ -14,20 +24,34 @@ Starting Face for the Project :
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 ```
-
 5. to run our server : npm run devStart
-
+----
+### HomePage of Web-Application :
 ![snippet1](img/img1.png)
+### LoginScreen :
 ![snippet1](img/img2.png)
+### SignUp Screen :
 ![snippet1](img/img3.png)
+### Adding Question Screen :
 ![snippet1](img/img4.png)
+### Display Questions and Related Answers :
 ![snippet1](img/img5.png)
+### Adding Answer to a Question :
 ![snippet1](img/img6.png)
+### Profile Page of a User :
 ![snippet1](img/img7.png)
 
+---
+### API's Build in Project :
+```
+COMING SOON
+```
+---
 ### Working Snippet of Project :
 
 [LINK TO SNIPPET](https://youtu.be/avdqq_EHqmk)
+
+---
 
 ### Some Doubts that I face during working on this project:
 
