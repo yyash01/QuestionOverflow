@@ -9,7 +9,7 @@ const router = Router({ mergeParams: true });
 router.get("/new", requireAuth, answersController.newQ);
 router.post("/new", answersController.newAnswerPost);
 
-router.get("/show/:id", answersController.detailAnswer_get);
+router.get("/show/:id", requireAuth, answersController.detailAnswer_get);
 
 //to delete a answer of a question
 router.post("/delete", answersController.delete_answer);

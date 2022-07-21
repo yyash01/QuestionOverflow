@@ -3,27 +3,15 @@
 <div class="loader hidden">
   <img src="Rolling.gif" style="height: 50px; width: 50px" />
 </div>
-<form action="/signup">
-  <h2>Login</h2>
-  <label for="email">Email</label>
-  <input type="text" name="email" />
-  <div class="email error"></div>
-  <label for="password">Password</label>
-  <input type="password" name="password" />
-  <div class="password error"></div>
-  <button style="cursor: pointer">
-    Login<i style="margin-left: 5px" class="fas fa-sign-in-alt"></i>
-  </button>
-</form>
-
-<%- include('partials/footer'); -%>
-
-<!-- <script>
-  window.addEventListener("load", function () {
-    const loader = document.querySelector(".loader");
-    loader.className += " hidden"; // class "loader hidden"
-  });
-</script> -->
+<div id="custombtn">
+  <div
+    class="g-signin2"
+    data-width="250"
+    data-height="50"
+    data-longtitle="true"
+    data-onsuccess="onSignIn"
+  ></div>
+</div>
 
 <script>
   const form = document.querySelector("form");

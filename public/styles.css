@@ -26,6 +26,24 @@ footer {
   font-family: "Quicksand", sans-serif;
   color: #444;
 }
+#custombtn {
+  box-shadow: 1px 1px 2px grey;
+}
+.g-signin2 {
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  left: 46%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px;
+}
+
+.g-signin2 .abcRioButton {
+  height: 230px;
+  width: 50px;
+}
+
 ul {
   list-style-type: none;
 }

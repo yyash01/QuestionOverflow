@@ -24,6 +24,7 @@ app.set("view engine", "ejs");
 
 //db conections
 const dbURI =
+  // "mongodb+srv://yash:jain123@cluster0.wasy4.mongodb.net/DSAOVERFLOW";
   "mongodb+srv://yash:jain123@cluster0.wasy4.mongodb.net/DSAOVERFLOW";
 mongoose
   .connect(dbURI, {
@@ -32,16 +33,26 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then((result) =>
-    app.listen(3000, function () {
-      console.log("Server is running on Port 3000");
-    })
+  .then(
+    (result) =>
+      app.listen(3000, function () {
+        console.log("Server is running on Port 3000");
+      })
+    // .on("error", function (err) {
+    //   process.once("SIGUSR2", function () {
+    //     process.kill(process.pid, "SIGUSR2");
+    //   });
+    //   process.on("SIGINT", function () {
+    //     // this is only called on ctrl+c, not restart
+    //     process.kill(process.pid, "SIGINT");
+    //   });
+    // })
   )
   .catch((err) => console.log(err));
 
 // routes
 app.get("*", checkUser);
-app.get("/", (req, res) => res.render("home"));
+app.get("/", (req, res) => res.render("login"));
 app.use("/profile", profileRoutes);
 app.use(authRoutes);
 app.use(questionRoutes);
