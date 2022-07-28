@@ -13,14 +13,14 @@
         <div class="Row">
           <div class="Col">
             <button type="button" class="btn-success-solve">
-              <a href="<%= question.link %>" class="textC">
+              <a href="<%= question.link %>" class="textC" target="_blank">
                 Solve Question<i style="margin-left: 10px;" class="fas fa-external-link-alt"></i>
               </a>
             </button>
             </div>
             <div class="Col" style="margin-left: 30px">
             <button type="button" class="btn-success-solveQ">
-              <a href="/questions/<%= question._id %>/answer/new" class="textC">
+              <a href="/questions/<%= user %>/<%= question._id %>/answer/new" class="textC">
                 Post Solution<i style="margin-left: 10px;" class="fas fa-plus"></i>
               </a>
             </button>
@@ -38,10 +38,10 @@
                     <strong><%= answer.topic %></strong>
                     <span class="pull-right"> Votes : <%= answer.votes %>
                       <button type="button" class="btn-success-solveQ">
-                        <a class="textC" href="/answer/show/<%=answer._id %>">View</a>
+                        <a class="textC" href="/answer/<%= user %>/show/<%=answer._id %>">View</a>
                       </button>
                     </span>
-                      <% if(user && answer.author.id.equals(user._id)){ %>
+                      <% if(user && answer.author.id===user){ %>
                         <button type="button" style="cursor:pointer;"onclick="doDelete('<%= answer._id %>');"><i class="fas fa-trash"></i></button>
                       <% } %>
                 </div>
@@ -51,19 +51,17 @@
       async function doDelete(answerID) {
         const loader = document.querySelector(".loader");
         loader.className = "loader"; // class "loader hidden"
-        try {
-          const res = await fetch("/answer/delete", {
-            method: "POST",
-            body: JSON.stringify({ answerID }),
-            headers: { "Content-Type": "application/json" },
-          });
-          const data = await res.json();
-          if (data.msg === "success") {
-            location.assign("/questions/<%= question._id %>");
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:3000/answer/<%= user %>/delete");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function () {
+          const data = JSON.parse(xhr.responseText);
+          if(data.msg=== "success"){
+            location.assign("/questions/<%= user %>/<%= question._id %>");
           }
-        } catch (err) {
-          console.log(err);
-        }
+        };
+        xhr.send(JSON.stringify({ answerID }));
       }
     </script>
   </body>

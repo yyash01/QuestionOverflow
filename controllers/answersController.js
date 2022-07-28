@@ -17,20 +17,17 @@ module.exports.newQ = (req, res) => {
 
 //to post a new Answer of A particular Question in Database.
 module.exports.newAnswerPost = async (req, res) => {
-  const token = req.cookies.jwt;
-  const user = jwt.verify(token, "net ninja secret");
-  let userData = await User.findById(user.id);
   //look For the Question using ID
-  Question.findById(req.params.id, function (err, questions) {
+  Question.findById(req.params.id, async function (err, questions) {
     if (err) {
       console.log(err);
-      res.redirect("/");
     } else {
       const { title, content } = req.body;
-      //to access the (user - id) while using JWT token , first decode it : spent 2hrs on figuring out this.
+      const userData = await User.findOne({ googleId: req.params.userid });
       var author = {
-        id: user.id,
-        name: userData.username,
+        id: req.params.userid,
+        link: `http://localhost:3000/profile/${req.params.userid}`,
+        name: userData.firstName,
       };
       const newAnswer = new Answer({
         topic: title,

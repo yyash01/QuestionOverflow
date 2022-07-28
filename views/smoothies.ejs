@@ -5,34 +5,10 @@
 </div>
 <div class="wrapper">
   <button type="button" class="btn-success">
-    <a href="/UpdateQuestionList" class="textC">Ask Question</a>
+    <a href="/questions/<%= user %>/UpdateQuestionList" class="textC"
+      >Ask Question</a
+    >
   </button>
-  <!-- <div class="search-input">
-    <form style="display: flex; flex-direction: row">
-      <input type="text" name="search" placeholder="Type to search.." />
-      <button class="btop">
-        <i class="fas fa-search"></i>
-      </button>
-    </form>
-    <script>
-      const form = document.querySelector("form");
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const search = form.search.value;
-        try {
-          const res = await fetch("/question/show", {
-            method: "POST",
-            body: JSON.stringify({ search }),
-            headers: { "Content-Type": "application/json" },
-          });
-          const data = await res.json();
-          console.log(data);
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    </script>
-  </div> -->
 </div>
 <ul class="recipes">
   <% question.forEach(function(q){ %>
@@ -40,10 +16,14 @@
     <img src="/logo4.png" alt="smoothie recipe icon" />
     <h4><%= q.title %></h4>
     <div class="simple">
-      <a href="/questions/<%= q._id %>" class="button-two" style="color: white">
+      <a
+        href="/questions/<%= user %>/<%= q._id %>"
+        class="button-two"
+        style="color: white"
+      >
         <b>More-Info</b>
       </a>
-      <%if(user && q.author.id.equals(user._id)){%>
+      <%if(user && q.author.id === user){%>
       <button type="button" onclick="doDelete('<%= q._id %>');">
         <i class="fas fa-trash"></i>
       </button>
@@ -56,19 +36,19 @@
   async function doDelete(questionID) {
     const loader = document.querySelector(".loader");
     loader.className = "loader"; // class "loader hidden"
-    try {
-      const res = await fetch("/question/delete", {
-        method: "POST",
-        body: JSON.stringify({ questionID }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
+
+    //for post request to server
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/questions/<%= user %>/delete");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+      const data = JSON.parse(xhr.responseText);
       if (data.msg === "success") {
-        location.assign("/smoothies");
+        location.assign(`/questions/<%= user %>/smoothies`);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    };
+    xhr.send(JSON.stringify({ questionID }));
   }
 </script>
 <%- include('partials/footer'); -%>

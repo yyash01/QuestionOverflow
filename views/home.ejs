@@ -1,4 +1,4 @@
-<%- include('partials/header'); -%>
+<%- include('partials/newheader.ejs'); -%>
 
 <header>
   <div class="loader hidden">
@@ -10,13 +10,53 @@
   <div class="headings">
     <h2>Question Overflow</h2>
     <h3 style="margin-left: 60px">A Helpforum for Doubts</h3>
-    <a href="/smoothies" class="btn" style="margin-left: 70px"
-      >View Questions<i
-        style="margin-left: 5px"
-        class="fas fa-angle-double-right"
-      ></i
-    ></a>
+    <div
+      id="g_id_onload"
+      data-client_id="922297526978-3g5fm0t5jialei5d8cpqs9c7pg6826ad.apps.googleusercontent.com"
+      data-context="signin"
+      data-ux_mode="popup"
+      data-auto_prompt="false"
+      data-callback="onSignIn"
+    ></div>
+
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="rectangular"
+      data-theme="filled_white"
+      data-text="signin_with"
+      data-size="large"
+      data-logo_alignment="left"
+      data-width="350px"
+      data-height="500px"
+    ></div>
   </div>
 </header>
+
+<script>
+  function onSignIn(googleUser) {
+    const responsePayload = googleUser.credential;
+    var base64Url = responsePayload.split(".")[1];
+    var decodedValue = JSON.parse(window.atob(base64Url));
+    const userObject = {
+      googleId: decodedValue.sub,
+      fullName: decodedValue.name,
+      firstName: decodedValue.given_name,
+      lastName: decodedValue.family_name,
+      ImageURL: decodedValue.picture,
+      Email: decodedValue.email,
+    };
+
+    //for post request to server
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/login");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+      // console.log(JSON.parse(xhr.responseText));
+      location.assign(`/questions/${userObject.googleId}/smoothies`);
+    };
+    xhr.send(JSON.stringify(userObject));
+  }
+</script>
 
 <%- include('partials/footer'); -%>

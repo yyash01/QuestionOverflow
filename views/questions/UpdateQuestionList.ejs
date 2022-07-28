@@ -40,20 +40,22 @@
       const topic = form.topic.value;
       const link = form.link.value;
       const problem = form.query.value;
-      try {
-        const res = await fetch("/UpdateQuestionList", {
-          method: "POST",
-          body: JSON.stringify({ problem, topic, link }),
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await res.json(); //these things are important as ,
-        //after submitting my form we will render these pages in location.assign().
+
+      //post request to server
+      var xhr = new XMLHttpRequest();
+      xhr.open(
+        "POST",
+        "http://localhost:3000/questions/<%= user %>/UpdateQuestionList"
+      );
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function () {
+        const data = JSON.parse(xhr.responseText);
+        console.log(data.questionID);
         if (data.questionID) {
-          location.assign(`/questions/${data.questionID}`);
+          location.assign(`/questions/<%= user %>/${data.questionID}`);
         }
-      } catch (err) {
-        console.log(err);
-      }
+      };
+      xhr.send(JSON.stringify({ problem, topic, link }));
     });
   </script>
 </div>

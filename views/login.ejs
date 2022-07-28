@@ -3,50 +3,37 @@
 <div class="loader hidden">
   <img src="Rolling.gif" style="height: 50px; width: 50px" />
 </div>
-<div id="custombtn">
-  <div
-    class="g-signin2"
-    data-width="250"
-    data-height="50"
-    data-longtitle="true"
-    data-onsuccess="onSignIn"
-  ></div>
-</div>
+<div
+  id="g_id_onload"
+  data-client_id="922297526978-3g5fm0t5jialei5d8cpqs9c7pg6826ad.apps.googleusercontent.com"
+  data-context="signin"
+  data-ux_mode="popup"
+  data-auto_prompt="false"
+  data-callback="onSignIn"
+></div>
+
+<div
+  class="g_id_signin"
+  data-type="standard"
+  data-shape="rectangular"
+  data-text="signin_with"
+  data-size="large"
+  data-logo_alignment="left"
+  data-width="250px"
+  data-height="400px"
+></div>
 
 <script>
-  const form = document.querySelector("form");
-  const emailError = document.querySelector(".email.error");
-  const passwordError = document.querySelector(".password.error");
+  function onSignIn(googleUser) {
+    const responsePayload = googleUser.credential;
+    var base64Url = responsePayload.split(".")[1];
+    var decodedValue = JSON.parse(window.atob(base64Url));
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    // const loader = document.querySelector(".loader");
-    // loader.className = "loader"; // class "loader hidden"
-
-    // reset errors
-    emailError.textContent = "";
-    passwordError.textContent = "";
-
-    // get values
-    const email = form.email.value;
-    const password = form.password.value;
-
-    try {
-      const res = await fetch("/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      if (data.errors) {
-        emailError.textContent = data.errors.email;
-        passwordError.textContent = data.errors.password;
-      }
-      if (data.user) {
-        location.assign("/");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  });
+    console.log("ID: " + decodedValue.sub);
+    console.log("Full Name: " + decodedValue.name);
+    console.log("Given Name: " + decodedValue.given_name);
+    console.log("Family Name: " + decodedValue.family_name);
+    console.log("Image URL: " + decodedValue.picture);
+    console.log("Email: " + decodedValue.email);
+  }
 </script>

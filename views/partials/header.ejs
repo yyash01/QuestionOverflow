@@ -2,11 +2,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="google-signin-client_id"
-      content="922297526978-3g5fm0t5jialei5d8cpqs9c7pg6826ad.apps.googleusercontent.com"
-    />
     <title>QuestionOverflow</title>
+    <link rel="icon" type="image/png" href="/img/lap.png" sizes="16x16" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/styles.css" />
 
@@ -14,42 +11,50 @@
       src="https://kit.fontawesome.com/6e18d74916.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <nav>
       <h3>
         <ul>
-          <li><a href="/" class="btn">DashBoard</a></li>
+          <li>
+            <a href="/questions/<%= user %>/smoothies" class="btn"> Home </a>
+          </li>
         </ul>
       </h3>
       <ul>
         <% if (user) { %>
         <li>
           <a
-            href="/profile/<%= user._id %>"
+            href="/profile/<%= user %>"
             style="background-color: rgb(212, 211, 211); border-radius: 15px"
           >
             <b><i class="fas fa-user-circle"></i>Profile</b>
           </a>
         </li>
         <li>
-          <a href="/logout" class="btn">
+          <a class="btn" onclick="signOut('<%= user %>');">
             LogOut
             <i class="fas fa-sign-out-alt"></i>
           </a>
         </li>
-        <% } else { %>
-        <li>
-          <a
-            href="/login"
-            style="background-color: rgb(212, 211, 211); border-radius: 15px"
-            >Log in</a
-          >
-        </li>
-        <li><a href="/signup" class="btn">Sign up</a></li>
         <% } %>
       </ul>
     </nav>
   </body>
+  <script>
+    function signOut(userId) {
+      console.log("Inside the function: " + userId);
+
+      //for post request to server to signOut the current User.
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:3000/logout");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function () {
+        //console.log(JSON.parse(xhr.responseText));
+        location.assign("/");
+      };
+      xhr.send(JSON.stringify({ userId }));
+    }
+  </script>
 </html>

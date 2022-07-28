@@ -3,11 +3,11 @@ const User = require("../models/User");
 const answersController = require("../controllers/answersController");
 const questionsController = require("../controllers/questionsController");
 const { requireAuth } = require("../middleware/authMiddleware");
-const router = Router();
+const router = Router({ mergeParams: true });
 
-//show a user.
-router.get("/:id", requireAuth, (req, res) => {
-  User.findById(req.params.id)
+//show a Profile of the User having googId = userid
+router.get("/:userid", requireAuth, (req, res) => {
+  User.findOne({ googleId: req.params.userid })
     .populate(["answers", "questions"])
     .exec((err, userfound) => {
       if (err) {
@@ -18,12 +18,17 @@ router.get("/:id", requireAuth, (req, res) => {
     });
 });
 
-router.get("/answer/show/:id", requireAuth, answersController.detailAnswer_get);
+// To get the User answeres.
 router.get(
-  "/question/:id",
+  "/:userid/answer/show/:id",
+  requireAuth,
+  answersController.detailAnswer_get
+);
+
+//To get the User Asked Questions.
+router.get(
+  "/:userid/question/:id",
   requireAuth,
   questionsController.detailQuestion_get
 );
 module.exports = router;
-
-(req, res) => res.render("profile");

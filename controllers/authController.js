@@ -1,92 +1,55 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const CurrentUser = require("../models/CurrentUser");
 
-// handle errors
-const handleErrors = (err) => {
-  console.log(err.message, err.code);
-  let errors = { email: "", password: "" };
+module.exports.login_post = async (req, res) => {
+  const id = req.body.googleId;
 
-  // incorrect email
-  if (err.message === "incorrect email") {
-    errors.email = "That email is not registered";
-  }
+  //logging In the Current User
+  await CurrentUser.findOne({ googleId: id }, (err, found) => {
+    if (found) {
+    } else {
+      CurrentUser.insertMany({ googleId: id }, (err) => {
+        if (err) {
+          res.send(err);
+        }
+      });
+    }
+  });
 
-  // incorrect password
-  if (err.message === "incorrect password") {
-    errors.password = "That password is incorrect";
-  }
+  //If the User is not Registered - Register him/her.
+  await User.findOne({ googleId: id }, (err, found) => {
+    if (found) {
+      res.send(found);
+    } else {
+      const NewUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        googleId: req.body.googleId,
+        email: req.body.Email,
+        imgurl: req.body.ImageURL,
+        points: 0.0,
+      });
 
-  // duplicate email error
-  if (err.code === 11000) {
-    errors.email = "that email is already registered";
-    return errors;
-  }
-
-  // validation errors
-  if (err.message.includes("user validation failed")) {
-    // console.log(err);
-    Object.values(err.errors).forEach(({ properties }) => {
-      // console.log(val);
-      // console.log(properties);
-      errors[properties.path] = properties.message;
-    });
-  }
-
-  return errors;
-};
-
-// create json web token
-const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-  return jwt.sign({ id }, "net ninja secret", {
-    expiresIn: maxAge,
+      User.insertMany(NewUser, (err) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(NewUser);
+        }
+      });
+    }
   });
 };
 
-// controller actions
-module.exports.signup_get = (req, res) => {
-  res.render("signup");
-};
-
-module.exports.login_get = (req, res) => {
-  res.render("login");
-};
-
-module.exports.signup_post = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  try {
-    const user = await User.create({ username: name, email, password });
-    // generate salt to hash password
-    const salt = await bcrypt.genSalt();
-    // now we set user password to hashed password
-    user.password = await bcrypt.hash(user.password, salt);
-    user.save();
-    const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(201).json({ user: user._id });
-  } catch (err) {
-    const errors = handleErrors(err);
-    res.status(400).json({ errors });
-  }
-};
-
-module.exports.login_post = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id });
-  } catch (err) {
-    const errors = handleErrors(err);
-    res.status(400).json({ errors });
-  }
-};
-
-module.exports.logout_get = (req, res) => {
-  res.locals.user = null;
-  res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+//logging Out the Current User
+module.exports.logout_post = (req, res) => {
+  const id = req.body.userId;
+  CurrentUser.findOneAndRemove({ googleId: id }, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.locals.user = null;
+      res.status(200).json({ msg: "success" });
+    }
+  });
 };

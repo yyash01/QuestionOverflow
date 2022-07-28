@@ -40,9 +40,7 @@
       <h3>
         <ul>
           <li>
-            <a href="/smoothies" class="btn">
-              <p style="font-size: 20px">Questions</p>
-            </a>
+            <a href="/questions/<%= user %>/smoothies" class="btn"> Home </a>
           </li>
         </ul>
       </h3>
@@ -50,27 +48,18 @@
         <% if (user) { %>
         <li>
           <a
-            href="/profile/<%= user._id %>"
+            href="/profile/<%= user %>"
             style="background-color: rgb(212, 211, 211); border-radius: 15px"
           >
             <b><i class="fas fa-user-circle"></i>Profile</b>
           </a>
         </li>
         <li>
-          <a href="/logout" class="btn">
+          <a class="btn" onclick="signOut('<%= user %>');">
             LogOut
             <i class="fas fa-sign-out-alt"></i>
           </a>
         </li>
-        <% } else { %>
-        <li>
-          <a
-            href="/login"
-            style="background-color: rgb(212, 211, 211); border-radius: 15px"
-            >Log in</a
-          >
-        </li>
-        <li><a href="/signup" class="btn">Sign up</a></li>
         <% } %>
       </ul>
     </nav>
@@ -126,23 +115,39 @@
         const title = form.title.value;
         // const content = form.content.value;
         const content = quill.getText();
-        try {
-          const res = await fetch("/questions/<%= question._id %>/answer/new", {
-            method: "POST",
-            body: JSON.stringify({ title, content }),
-            headers: { "Content-Type": "application/json" },
-          });
-          const data = await res.json();
+
+        //for post request to server
+        var xhr = new XMLHttpRequest();
+        xhr.open(
+          "POST",
+          "http://localhost:3000/questions/<%= user %>/<%= question._id %>/answer/new"
+        );
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function () {
+          const data = JSON.parse(xhr.responseText);
           if (data.answerID) {
-            console.log(data.answerID);
             location.assign(
-              `/questions/<%= question._id %>/answer/show/${data.answerID}`
+              `/questions/<%= user %>/<%= question._id %>/answer/show/${data.answerID}`
             );
           }
-        } catch (err) {
-          console.log(err);
-        }
+        };
+        xhr.send(JSON.stringify({ title, content }));
       });
+    </script>
+    <script>
+      function signOut(userId) {
+        console.log("Inside the function: " + userId);
+
+        //for post request to server to signOut the current User.
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:3000/logout");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function () {
+          //console.log(JSON.parse(xhr.responseText));
+          location.assign("/");
+        };
+        xhr.send(JSON.stringify({ userId }));
+      }
     </script>
   </body>
 </html>

@@ -5,13 +5,13 @@
     <img src="/Userimage.png" style="width: 200px; height: 200px" />
     <div class="Row">
       <div class="Row">
-        <h3>Name : <%= userOP.username %></h3>
+        <h3>Name : <%= userOP.firstName %> <%=userOP.lastName %></h3>
       </div>
       <div class="Row">
         <h3>Mail : <%= userOP.email %></h3>
       </div>
       <div class="Row">
-        <h3>Points : 2</h3>
+        <h3>Points : <%= userOP.points %></h3>
       </div>
     </div>
   </div>
@@ -25,7 +25,9 @@
         <ul style="-webkit-overflow-scrolling: touch">
           <li class="op">
             Answer <%= i+1 %>
-            <a href="/profile/answer/show/<%= userOP.answers[i]._id %>">
+            <a
+              href="/profile/<%= userOP.googleId %>/answer/show/<%= userOP.answers[i]._id %>"
+            >
               <i class="fas fa-external-link-alt" style="margin-left: 70px">
               </i>
             </a>
@@ -44,7 +46,9 @@
         <ul style="-webkit-overflow-scrolling: touch">
           <li class="op">
             Question<%= i+1 %>
-            <a href="/profile/question/<%= userOP.questions[i]._id %>">
+            <a
+              href="/profile/<%= userOP.googleId %>/question/<%= userOP.questions[i]._id %>"
+            >
               <i class="fas fa-external-link-alt" style="margin-left: 70px">
               </i>
             </a>

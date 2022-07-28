@@ -35,13 +35,9 @@ module.exports.newquestion_get = (req, res) => {
 //adding a new Question to database.
 module.exports.newquestion_post = async (req, res) => {
   const { problem, topic, link } = req.body;
-  //to access the (user - id) while using JWT token , first decode it : spent 2hrs on figuring out this.
-  const token = req.cookies.jwt;
-  const user = jwt.verify(token, "net ninja secret");
-  let userData = await User.findById(user.id);
-  // console.log(userData);
+  let userData = await User.findOne({ googleId: req.params.userid });
   var author = {
-    id: user.id,
+    id: req.params.userid,
   };
   const newQuestion = new Question({
     title: topic,

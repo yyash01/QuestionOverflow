@@ -10,8 +10,10 @@ const answerSchema = new mongoose.Schema({
   },
   author: {
     id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
+      type: String,
+    },
+    link: {
+      type: String,
     },
     name: {
       type: String,
